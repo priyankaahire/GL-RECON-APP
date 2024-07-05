@@ -1,0 +1,6 @@
+.app-container {
+    padding-top: 64px; /* Adjust this value based on the height of your header */
+    /* 64px is the default height of mat-toolbar in Angular Material */
+    height: calc(100vh - 64px); /* Calculate remaining height minus header height */
+    overflow-y: auto;
+}

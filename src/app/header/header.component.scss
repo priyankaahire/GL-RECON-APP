@@ -1,0 +1,17 @@
+
+
+.mat-toolbar {
+    background-color: #2196f3; /* Blue background color */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Adjust z-index as needed */
+    justify-content: space-between;
+    color: white;
+    font-size: 18px;
+  }
+  
+  /* Adjust content margin to avoid overlap with fixed header */
+  .content {
+    margin-top: 64px; /* Adjust based on header height */
+  }
