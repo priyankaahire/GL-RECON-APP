@@ -8,25 +8,24 @@ import { ReconModel } from '../model/recon';
 })
 export class ApiService {
 
+  private baseUrl = 'assets/data';
+
   constructor(private http: HttpClient) { }
-  apiurl = 'http://localhost:4200/components/general-ledger-list'
 
   
   getAllRecon(): Observable<any> {
-    return this.http.get<any>('assets/recon-list.json'); // Path to your JSON file in the assets folder
+    return this.http.get<any>(`${this.baseUrl}/recon-list.json`); // Path to your JSON file in the assets folder
   }
   getReconbyId(id: any): Observable<ReconModel> {
-    return this.http.get<ReconModel>(this.apiurl + '/' + id);
+    return this.http.get<ReconModel>(`${this.baseUrl} + '/' + id`);
   }
 
- 
-
   createRecon(recondata: any) {
-    return this.http.post(this.apiurl, recondata);
+    return this.http.post(`this.baseUrl`, recondata);
   }
 
   updateRecon(id: any, recondata: any) {
-    return this.http.put(this.apiurl + '/' + id, recondata);
+    return this.http.put(`this.baseUrl + '/' + id`, recondata);
   }
 
 }

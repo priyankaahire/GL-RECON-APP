@@ -21,9 +21,9 @@
             <mat-select formControlName="frequency">
               <mat-option
                 *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                [value]="frequency?.id"
               >
-                {{ frequency.value }}
+                {{ frequency?.value }}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="frequency?.hasError('required')">
@@ -42,50 +42,50 @@
         <div class="form-row">
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Database</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="sourcedb">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let db of sourceDatabase"
+                [value]="db.id"
               >
-                {{ frequency.value }}
+                {{ db.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="sourcedb?.hasError('required')">
               Database is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Schema</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="sourceschema">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let schema of sourceSchema"
+                [value]="schema.id"
               >
-                {{ frequency.value }}
+                {{ schema.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="sourceschema?.hasError('required')">
               Schema is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Table</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="sourcetable">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let tb of sourceTable"
+                [value]="tb.id"
               >
-                {{ frequency.value }}
+                {{ tb.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="sourcetable?.hasError('required')">
               Table is required
             </mat-error>
           </mat-form-field>
         </div>
       </section>
        <!-- Section 2: Target Table -->
-       <section>
+        <section>
         <div class="table-header">
           <span>Targe Table</span>
           <mat-icon class="info-icon">info</mat-icon>
@@ -93,43 +93,43 @@
         <div class="form-row">
           <mat-form-field appearance="fill" class="recon-full-width custom-form-field">
             <mat-label>Database</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="tragetdb">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let db of targetDatabase"
+                [value]="db.id"
               >
-                {{ frequency.value }}
+                {{ db.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="targetdb?.hasError('required')">
               Database is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Schema</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="targetschema">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let schema of targetSchema"
+                [value]="schema.id"
               >
-                {{ frequency.value }}
+                {{ schema.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="targetschema?.hasError('required')">
               Schema is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Table</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="targettable">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let target of targetTable"
+                [value]="target.id"
               >
-                {{ frequency.value }}
+                {{ target.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="targettable?.hasError('required')">
               Table is required
             </mat-error>
           </mat-form-field>
@@ -144,43 +144,43 @@
         <div class="form-row">
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Database</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="variancedb">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let db of varianceDatabase"
+                [value]="db.id"
               >
-                {{ frequency.value }}
+                {{ db.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="variancedb?.hasError('required')">
               Database is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Schema</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="varianceschema">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let schema of varianceSchema"
+                [value]="schema.id"
               >
-                {{ frequency.value }}
+                {{ schema.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="varianceschema?.hasError('required')">
               Schema is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Table</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="varianceable">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let table of varianceTable"
+                [value]="table.id"
               >
-                {{ frequency.value }}
+                {{ table.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="variancetable?.hasError('required')">
               Table is required
             </mat-error>
           </mat-form-field>
@@ -195,43 +195,43 @@
         <div class="form-row">
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Database</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="adjustmentdb">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let db of adjustmentDatabase"
+                [value]="db.id"
               >
-                {{ frequency.value }}
+                {{ db.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="adjustmentdb?.hasError('required')">
               Database is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Schema</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="adjustmentschema">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let schema of adjustmentSchema"
+                [value]="schema.id"
               >
-                {{ frequency.value }}
+                {{ schema.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="adjustmentschema?.hasError('required')">
               Schema is required
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Table</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="adjustmenttable">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let table of adjustmentTable"
+                [value]="table.id"
               >
-                {{ frequency.value }}
+                {{ table.value }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="frequency?.hasError('required')">
+            <mat-error *ngIf="adjustmenttable?.hasError('required')">
               Table is required
             </mat-error>
           </mat-form-field>
@@ -242,23 +242,23 @@
         <div class="form-row">
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Source Filter</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="sourcefilter">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let fil of targetFilter"
+                [value]="fil.id"
               >
-                {{ frequency.value }}
+                {{ fil.value }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Traget Filter</mat-label>
-            <mat-select formControlName="frequency">
+            <mat-select formControlName="targetfilter">
               <mat-option
-                *ngFor="let frequency of frequencies"
-                [value]="frequency.id"
+                *ngFor="let fil of sourceFilter"
+                [value]="fil.id"
               >
-                {{ frequency.value }}
+                {{ fil.value }}
               </mat-option>
             </mat-select>
           </mat-form-field>

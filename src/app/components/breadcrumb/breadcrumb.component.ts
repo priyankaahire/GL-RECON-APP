@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, NavigationEnd, RouterModule, RouterLinkActive } from '@angular/router';
-import { BreadcrumbService } from '../services/bredcrumb.servcie';
+import { BreadcrumbService } from '../../services/bredcrumb.servcie';
 import { filter } from 'rxjs/operators';
 
 @Component({
