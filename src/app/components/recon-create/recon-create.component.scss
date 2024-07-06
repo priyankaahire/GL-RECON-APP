@@ -1,0 +1,57 @@
+.container {
+  margin: 20px;
+  height: 100%;
+}
+.form-container {
+  width:80%;
+  border: 1px solid #aea2a2;
+  padding: 8px;
+}
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+.recon-form {
+  width: 98%;
+}
+section {
+  margin-bottom: 12px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  margin-top: 16px;
+}
+.recon-full-width {
+ flex: 1
+}
+.border-row {
+  border: 1px solid #ccc
+}
+.info-icon {
+ font-size: 16px;
+  margin:0 6px;
+  padding-top: 6px;
+}
+.form-button-row{
+  width:100%;
+  display: inline-flex;
+  justify-content: flex-end;
+  gap:10px
+}
+.table-header {
+  display: flex;
+  align-items: center;
+  padding-left: 2px;
+  
+}
+.table-header span {
+  font-size: 0.83em;
+  font-weight: bold;
+}
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #fff !important; /* Replace with your desired background color */
+}

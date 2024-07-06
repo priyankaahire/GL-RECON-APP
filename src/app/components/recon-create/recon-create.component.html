@@ -1,1 +1,277 @@
-<p>recon-create works!</p>
+<div class="container">
+  <div class="form-container">
+    <form class="recon-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+     
+      <section>
+        <h3>Create Recon</h3>
+        <span>User can create new Recons from here</span>
+      </section>
+       <!-- Section 1: Recon Name -->
+      <section>
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="recon-full-width custom-form-field">
+            <mat-label>Recon Name</mat-label>
+            <input matInput formControlName="reconName" />
+            <mat-error *ngIf="reconName?.hasError('required')">
+              Recon Name is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width custom-form-field">
+            <mat-label>Frequency</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Frequency is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </section>
+      <!-- Section 2: Source Table -->
+      <section>
+        <div class="table-header">
+          <span>Source Table</span>
+          <mat-icon class="info-icon">info</mat-icon>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Database</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Database is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Schema</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Schema is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Table</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Table is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </section>
+       <!-- Section 2: Target Table -->
+       <section>
+        <div class="table-header">
+          <span>Targe Table</span>
+          <mat-icon class="info-icon">info</mat-icon>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="recon-full-width custom-form-field">
+            <mat-label>Database</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Database is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Schema</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Schema is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Table</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Table is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </section>
+      <!-- Section 2: Variance Table -->
+      <section>
+        <div class="table-header">
+          <span>Variance Table</span>
+          <mat-icon class="info-icon">info</mat-icon>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Database</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Database is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Schema</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Schema is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Table</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Table is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </section>
+       <!-- Section 2: Adjustment Table -->
+       <section>
+        <div class="table-header">
+          <span>Adjustment Table</span>
+          <mat-icon class="info-icon">info</mat-icon>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Database</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Database is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Schema</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Schema is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Table</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="frequency?.hasError('required')">
+              Table is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+       </section>
+      <!-- Section 4: filter -->
+      <section>
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Source Filter</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="recon-full-width">
+            <mat-label>Traget Filter</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option
+                *ngFor="let frequency of frequencies"
+                [value]="frequency.id"
+              >
+                {{ frequency.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+         
+        </div>
+      </section>
+      <!-- Section 3: Buttons -->
+      <section>
+        <div class="form-button-row">
+          <button mat-raised-button type="cancel">Cancel</button>
+          <button mat-raised-button type="submit">Submit</button>
+        </div>
+      </section>
+    </form>
+  </div>
+</div>

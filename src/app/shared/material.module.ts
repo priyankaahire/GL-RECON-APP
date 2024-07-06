@@ -14,14 +14,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
     imports:[MatIconModule, MatToolbarModule, MatToolbarModule,
         MatToolbarModule, MatDialogModule, MatButtonModule, MatInputModule, MatFormFieldModule,
-         MatSelectModule, MatTableModule, MatSortModule, MatPaginatorModule
+         MatSelectModule, MatTableModule, MatSortModule, MatPaginatorModule,
+         MatInputModule, MatSelectModule
      ],
      exports: [
         MatIconModule, MatToolbarModule, MatToolbarModule,
         MatToolbarModule, MatDialogModule, MatButtonModule, MatInputModule, MatFormFieldModule,
-         MatSelectModule, MatTableModule, MatSortModule, MatPaginatorModule
+         MatSelectModule, MatTableModule, MatSortModule, MatPaginatorModule,  MatInputModule, 
+         MatSelectModule
+        ],
         
-      ]
+      
 })
 
 export class MaterialModule { }
