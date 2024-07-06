@@ -87,13 +87,13 @@
        <!-- Section 2: Target Table -->
         <section>
         <div class="table-header">
-          <span>Targe Table</span>
+          <span>Target Table</span>
           <mat-icon class="info-icon">info</mat-icon>
         </div>
         <div class="form-row">
           <mat-form-field appearance="fill" class="recon-full-width custom-form-field">
             <mat-label>Database</mat-label>
-            <mat-select formControlName="tragetdb">
+            <mat-select formControlName="targetdb">
               <mat-option
                 *ngFor="let db of targetDatabase"
                 [value]="db.id"
@@ -252,7 +252,7 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
-            <mat-label>Traget Filter</mat-label>
+            <mat-label>Target Filter</mat-label>
             <mat-select formControlName="targetfilter">
               <mat-option
                 *ngFor="let fil of sourceFilter"
