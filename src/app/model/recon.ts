@@ -30,7 +30,7 @@ export interface ReconModel {
    
   // }
   export interface MeasuresModel {
-    id?:string;
+    id:string;
     Recon_Id:string,
     Src_Tbl_Measure:string;
     Trgt_Tbl_Measure: string;

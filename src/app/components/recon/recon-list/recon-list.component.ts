@@ -3,8 +3,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
-import { ApiService } from '../../services/api.service'
-import { BreadcrumbService } from '../../services/bredcrumb.servcie'
+import { ApiService } from '../../../services/api.service'
+import { BreadcrumbService } from '../../../services/bredcrumb.servcie'
 import { Router } from '@angular/router';
 
 export interface ReconData {
