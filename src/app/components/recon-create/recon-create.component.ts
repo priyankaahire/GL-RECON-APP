@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data-service';
 
 @Component({
@@ -24,7 +25,7 @@ export class ReconCreateComponent {
   adjustmentTable:any = [];
   targetFilter:any = [];
   sourceFilter:any = [];
-  constructor(private fb: FormBuilder, private _dataService: DataService) {
+  constructor(private fb: FormBuilder, private _dataService: DataService, private _router: Router) {
     this.form = this.fb.group({
       reconName: ['', Validators.required],
       frequency: ['', Validators.required],
@@ -40,6 +41,8 @@ export class ReconCreateComponent {
       adjustmenttable:['', Validators.required],
       adjustmentschema:['', Validators.required],
       adjustmentdb:['', Validators.required],
+      sourcefilter:['', !Validators.required],
+     targetfilter:['', !Validators.required],
     });
   }
   ngOnInit():void {
@@ -108,9 +111,19 @@ export class ReconCreateComponent {
   get adjustmentdb() {
     return this.form.get('adjustmentdb');
   }
+  get sourcefilter() {
+    return this.form.get('sourcefilter');
+  }
+  get targetfilter() {
+    return this.form.get('targetfilter');
+  }
   onSubmit() {
     if (this.form.valid) {
       console.log(this.form.value);
+      this._router.navigate(['./key-measure'])
+    } else {
+      this._router.navigate(['./key-measure'])
+
     }
   }
 }

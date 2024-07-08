@@ -19,13 +19,19 @@ export class ApiService {
   getReconbyId(id: any): Observable<ReconModel> {
     return this.http.get<ReconModel>(`${this.baseUrl} + '/' + id`);
   }
-
   createRecon(recondata: any) {
     return this.http.post(`this.baseUrl`, recondata);
   }
-
   updateRecon(id: any, recondata: any) {
     return this.http.put(`this.baseUrl + '/' + id`, recondata);
+  }
+
+  getAllKeys() {
+    return this.http.get<any>(`${this.baseUrl}/keys-list.json`); // Path to your JSON file in the assets folder
+
+  }
+  getAllMeasures() {
+    return this.http.get<any>(`${this.baseUrl}/measures-list.json`); // Path to your JSON file in the assets folder
   }
 
 }

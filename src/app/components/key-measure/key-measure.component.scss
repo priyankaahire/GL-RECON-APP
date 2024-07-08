@@ -1,0 +1,30 @@
+.container {
+  margin: 20px;
+  height: 100%;
+}
+.main-container {
+  width: 80%;
+  border: 1px solid #ebe7e7;
+  padding: 8px;
+}
+.key-container {
+  margin-bottom: 35px;
+}
+.measure-container {
+  margin-bottom: 25px;
+}
+.label {
+  display: flex;
+  align-items: center;
+  padding-left: 2px;
+  font-size: 16;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.footer-btn {
+  display: flex;
+  justify-content: flex-end; /* Align items to the start and end of container */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 20px;
+  gap: 10px;
+}

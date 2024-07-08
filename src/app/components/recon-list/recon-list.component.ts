@@ -1,9 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import { ApiService } from '../../services/api.service'
@@ -21,12 +18,10 @@ export interface ReconData {
 }
 @Component({
   selector: 'app-recon-list',
- // imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule],
   templateUrl: './recon-list.component.html',
   styleUrls: ['./recon-list.component.scss']
 })
 export class ReconListComponent implements OnInit, AfterViewInit{
-  //Example data (replace with actual data retrieval logic)
   dataSource: MatTableDataSource<ReconData>;
   displayedColumns: string[] = [
     'reconId',

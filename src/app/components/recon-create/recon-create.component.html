@@ -172,7 +172,7 @@
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
             <mat-label>Table</mat-label>
-            <mat-select formControlName="varianceable">
+            <mat-select formControlName="variancetable">
               <mat-option
                 *ngFor="let table of varianceTable"
                 [value]="table.id"
@@ -244,7 +244,7 @@
             <mat-label>Source Filter</mat-label>
             <mat-select formControlName="sourcefilter">
               <mat-option
-                *ngFor="let fil of targetFilter"
+                *ngFor="let fil of sourceFilter"
                 [value]="fil.id"
               >
                 {{ fil.value }}
@@ -255,7 +255,7 @@
             <mat-label>Target Filter</mat-label>
             <mat-select formControlName="targetfilter">
               <mat-option
-                *ngFor="let fil of sourceFilter"
+                *ngFor="let fil of targetFilter"
                 [value]="fil.id"
               >
                 {{ fil.value }}
@@ -269,7 +269,7 @@
       <section>
         <div class="form-button-row">
           <button mat-raised-button type="cancel">Cancel</button>
-          <button mat-raised-button type="submit">Submit</button>
+          <button color="primary" mat-raised-button type="submit">Submit</button>
         </div>
       </section>
     </form>

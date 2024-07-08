@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import this module
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { KeyMeasureComponent } from './components/key-measure/key-measure.component';
+import { MeasureComponent } from './components/measure/measure.component';
+import { KeysComponent } from './components/keys/keys.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     ReconListComponent,
     ReconCreateComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    KeyMeasureComponent,
+    MeasureComponent,
+    KeysComponent
+    
   ],
   imports: [
     CommonModule,

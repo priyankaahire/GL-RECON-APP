@@ -1,0 +1,62 @@
+
+ 
+  
+  <div class="key-contain">
+    <div class="header">
+      <button mat-flat-button color="primary" class="add-keys-button">
+        Add
+      </button>
+      <button mat-flat-button color="primary" class="remove-keys-button">
+        Remove All
+      </button>
+    </div>
+    <div class="key-datasource" *ngIf="keysDataSource">
+      <table mat-table [dataSource]="keysDataSource" class="mat-table">
+        <!-- Columns -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="editRow(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteRow(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Define columns with custom header names -->
+        <ng-container matColumnDef="Src_Tbl_Key">
+          <th mat-header-cell *matHeaderCellDef>Source Table Key</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Src_Tbl_Key }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Trgt_Tbl_Key">
+          <th mat-header-cell *matHeaderCellDef>Target Table Key</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Trgt_Tbl_Key }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Var_Tbl_Key">
+          <th mat-header-cell *matHeaderCellDef>Variance Table Key</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Var_Tbl_Key }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Adj_Tbl_Key">
+          <th mat-header-cell *matHeaderCellDef>Adjustment Table Key</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Adj_Tbl_Key }}
+          </td>
+        </ng-container>
+        <!-- Header row -->
+        <tr mat-header-row *matHeaderRowDef="displayedKeyColumns"></tr>
+        <!-- Data rows -->
+        <tr mat-row *matRowDef="let row; columns: displayedKeyColumns"></tr>
+      </table>
+    </div>
+  </div>

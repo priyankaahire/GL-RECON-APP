@@ -1,0 +1,13 @@
+[
+    {
+        "Recon_Id":1,
+        "Src_Tbl_Measure":"enb_bal_amt",
+        "Trgt_Tbl_Measure": "gl_number",
+        "Var_Tbl_Measure": "GL_Number",
+        "Adj_Tbl_Measure": "GL_Number",
+        "Create_UserId":"pahire",
+        "Created_Timestamp":"3525236236",
+        "Last_Updated_UserID": "pahire",
+        "Last_Update_Timestamp": "213124124"
+    }
+]
