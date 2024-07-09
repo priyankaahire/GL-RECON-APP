@@ -19,11 +19,10 @@ export class MeasureComponent {
     'Var_Tbl_Measure',
     'Adj_Tbl_Measure',
   ];
-  srcTabMeasure = ["src1", "src2", "src3"]
-  targetTabMeasure = ["target1", "target2", "target3"]
-  varianceTabMeasure = ["var11", "var22", "var3"]
-  adjTabMeasure = ["adj1", "adj2", "tadj3"]
-  editRowId: string | null = null;
+  sources= ['Source 1', 'Source 2', 'Source 3'];
+  targets= ['Target 1', 'Target 2', 'Target 3'];
+  adjs= ['Adj 1', 'Adj 2', 'Adj 3'];
+  variances= ['Variance 1', 'Variance 2', 'Variance 3']
 
   @Output() dataModified = new EventEmitter<MeasuresModel[]>();
   constructor(private _apiService: ApiService, public dialog: MatDialog) {}
@@ -58,20 +57,17 @@ export class MeasureComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        // Perform action when user clicks OK
         this.measuresDataSource.data = [];
         this.dataModified.emit(this.measuresDataSource.data)
-      } else {
-        // Handle cancel or closed dialog scenario
       }
     });
   }
   startEdit(element: MeasuresModel) {
-    element.isEditing = true;
+    element.isEditMode = true;
     console.log('Edit', element);
   }
   saveEdit(row: MeasuresModel) {
-    row.isEditing = false;
+    row.isEditMode = false;
   }
   deleteRow(selected: MeasuresModel) {
     const dialogRef = this.dialog.open(MessageActionDialogComponent, {
@@ -84,13 +80,10 @@ export class MeasureComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        // Perform action when user clicks OK
         this.measuresDataSource.data = this.measuresDataSource.data.filter(
           (element) => element.id !== selected.id
         );
         this.dataModified.emit(this.measuresDataSource.data)
-      } else {
-        // Handle cancel or closed dialog scenario
       }
     });
    

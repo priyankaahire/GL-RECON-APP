@@ -28,4 +28,12 @@ export class KeyMeasureComponent implements AfterViewInit {
     // Handle the modified data from KeysComponent here
   }
 
+  onSave() {
+    // We have to check each row each elment should not empty if empty set the solution
+    this.keysDataSource.forEach((row:KeysModel) => {
+      row.isEditMode = false;
+      row.hasError = !row.Src_Tbl_Key || !row.Trgt_Tbl_Key || !row.Adj_Tbl_Key || !row.Var_Tbl_Key;
+    });
+  }
+
 }

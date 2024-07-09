@@ -16,7 +16,7 @@ export interface ReconData {
   status: string;
   createdBy: string;
   createdOn: Date;
-  isEditing?:boolean
+  isEditMode?:boolean
 }
 @Component({
   selector: 'app-recon-list',
@@ -74,6 +74,6 @@ export class ReconListComponent implements OnInit, AfterViewInit{
   }
 
   editRecon(recon:any) {
-     recon.isEditing = true;
+     recon.isEditMode = true;
   }
 }

@@ -6,7 +6,8 @@ export interface ReconModel {
     status: string;
     createdBy: string;
     createdOn: Date;
-    isEditing?: boolean;
+    isEditMode?: boolean;
+    hasError?:boolean;
   }
 
   export interface KeysModel {
@@ -20,7 +21,8 @@ export interface ReconModel {
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;
     Last_Update_Timestamp?: string;
-    isEditing?: boolean;
+    isEditMode?: boolean;
+    hasError?:boolean;
   }
   export interface MeasuresModel {
     id:string;
@@ -33,6 +35,6 @@ export interface ReconModel {
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;
     Last_Update_Timestamp?: string;
-    isEditing?: boolean;
+    isEditMode?: boolean;
 
   }

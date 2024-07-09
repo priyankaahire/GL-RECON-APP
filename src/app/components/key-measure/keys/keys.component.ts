@@ -19,10 +19,10 @@ export class KeysComponent {
     'Var_Tbl_Key',
     'Adj_Tbl_Key',
   ];
-  srcTabKeys = ["insight_hl_Acc", "insight_hl_Acc2", "insight_hl_Acc2"]
-  targetTabKeys = ["target1", "target2", "target3"]
-  varianceTabKeys = ["var11", "var22", "var3"]
-  adjTabKeys = ["adj1", "adj2", "tadj3"]
+  sources= ['Source 1', 'Source 2', 'Source 3'];
+  targets= ['Target 1', 'Target 2', 'Target 3'];
+  adjs= ['Adj 1', 'Adj 2', 'Adj 3'];
+  variances= ['Variance 1', 'Variance 2', 'Variance 3']
   @Output() dataModified = new EventEmitter<KeysModel[]>();
 
   constructor(private _apiService: ApiService, public dialog: MatDialog) {
@@ -60,21 +60,18 @@ export class KeysComponent {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result === 'ok') {
-        // Perform action when user clicks OK
         this.keysDataSource.data = [];
         this.dataModified.emit(this.keysDataSource.data);
-      } else {
-        // Handle cancel or closed dialog scenario
       }
     });
   }
 
   startEdit(element: KeysModel) {
-    element.isEditing = true;
+    element.isEditMode = true;
     console.log('Edit', element);
   }
   saveEdit(row: KeysModel) {
-    row.isEditing = false;
+    row.isEditMode = false;
   }
   deleteRow(selected: KeysModel) {
     const dialogRef = this.dialog.open(MessageActionDialogComponent, {
@@ -87,13 +84,10 @@ export class KeysComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        // Perform action when user clicks OK
         this.keysDataSource.data = this.keysDataSource.data.filter(
           (element) => element.id !== selected.id
         );
         this.dataModified.emit(this.keysDataSource.data);
-      } else {
-        // Handle cancel or closed dialog scenario
       }
     });
    

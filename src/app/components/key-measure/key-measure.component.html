@@ -15,7 +15,7 @@
     <div class="key-measure-btn">
       <div class="footer-btn">
         <button mat-flat-button class="cancel-keymes-button">Cancel</button>
-        <button mat-flat-button color="primary" class="save-keymes-button" [disabled]="keysDataSource.length == 0 || measureDataSource.length == 0">
+        <button mat-flat-button color="primary" class="save-keymes-button" [disabled]="keysDataSource.length == 0 || measureDataSource.length == 0" (click)="onSave()">
           Save
         </button>
       </div>
