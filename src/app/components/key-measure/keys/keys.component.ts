@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { KeysModel } from 'src/app/model/recon';
@@ -10,8 +10,8 @@ import { MessageActionDialogComponent } from '../../message-action-dialog/messag
   templateUrl: './keys.component.html',
   styleUrls: ['./keys.component.scss'],
 })
-export class KeysComponent {
-  keysDataSource: MatTableDataSource<KeysModel>;
+export class KeysComponent implements OnChanges {
+  //keysDataSource: MatTableDataSource<KeysModel>;
   displayedKeyColumns: string[] = [
     'id',
     'Src_Tbl_Key',
@@ -24,12 +24,19 @@ export class KeysComponent {
   adjs= ['Adj 1', 'Adj 2', 'Adj 3'];
   variances= ['Variance 1', 'Variance 2', 'Variance 3']
   @Output() dataModified = new EventEmitter<KeysModel[]>();
+  @Input() dataSource: KeysModel[] = [];
+  keysDataSource!: MatTableDataSource<KeysModel>;
 
   constructor(private _apiService: ApiService, public dialog: MatDialog) {
-    this.keysDataSource = new MatTableDataSource<KeysModel>([]);
+   // this.keysDataSource = new MatTableDataSource(this.dataSource);
   }
-  ngOnInit() {
-    this.getKeys();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["dataSource"]) {
+      const dataSourceChange = changes["dataSource"];
+      if (dataSourceChange.currentValue) {
+        this.keysDataSource = new MatTableDataSource<KeysModel>(dataSourceChange.currentValue);
+      }
+    }
   }
   getKeys() {
     this._apiService.getAllKeys().subscribe((data: KeysModel[]) => {
@@ -69,6 +76,7 @@ export class KeysComponent {
   startEdit(element: KeysModel) {
     element.isEditMode = true;
     console.log('Edit', element);
+    this.validateAndAdjustColumns(element)
   }
   saveEdit(row: KeysModel) {
     row.isEditMode = false;
@@ -91,6 +99,30 @@ export class KeysComponent {
       }
     });
    
+  }
+
+  validateAndAdjustColumns(row: KeysModel): void {
+    if (row.isEditMode) {
+      // Validate and adjust variance
+      if (!this.variances.includes(row.Var_Tbl_Key)) {
+        row.Var_Tbl_Key = ''; // Set variance to empty if not found in options
+      }
+
+      // Validate and adjust source
+      if (!this.sources.includes(row.Src_Tbl_Key)) {
+        row.Src_Tbl_Key = ''; // Set source to empty if not found in options
+      }
+
+      // Validate and adjust target
+      if (!this.targets.includes(row.Trgt_Tbl_Key)) {
+        row.Trgt_Tbl_Key = ''; // Set target to empty if not found in options
+      }
+
+      // Validate and adjust adj
+      if (!this.adjs.includes(row.Adj_Tbl_Key)) {
+        row.Adj_Tbl_Key = ''; // Set adj to empty if not found in options
+      }
+    }
   }
 
 }

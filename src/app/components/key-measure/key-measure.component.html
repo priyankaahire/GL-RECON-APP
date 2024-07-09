@@ -4,7 +4,7 @@
         <div class="label">
             <span>Keys</span>&nbsp;<span style="color:red">*</span>
           </div>
-      <app-keys (dataModified)="handleKeysData($event)"></app-keys>
+      <app-keys [dataSource]="keysDataSource" (dataModified)="handleKeysData($event)"></app-keys>
     </div>
     <div class="measure-container">
         <div class="label">

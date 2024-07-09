@@ -41,6 +41,8 @@ import { MessageActionDialogComponent } from './components/message-action-dialog
     FormsModule
   ],
   providers: [],
+  schemas:[NO_ERRORS_SCHEMA],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

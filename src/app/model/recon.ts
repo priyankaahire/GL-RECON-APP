@@ -16,7 +16,7 @@ export interface ReconModel {
     Src_Tbl_Key:string;
     Trgt_Tbl_Key: string;
     Var_Tbl_Key: string;
-    Adj_Tbl_Key: String;
+    Adj_Tbl_Key: string;
     Create_UserId?:string;
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;
