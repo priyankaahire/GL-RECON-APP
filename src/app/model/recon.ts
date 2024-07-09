@@ -6,11 +6,12 @@ export interface ReconModel {
     status: string;
     createdBy: string;
     createdOn: Date;
+    isEditing?: boolean;
   }
 
   export interface KeysModel {
-    id?:string;
-    Recon_Id?:string,
+    id:string;
+    Recon_Id:string,
     Src_Tbl_Key:string;
     Trgt_Tbl_Key: string;
     Var_Tbl_Key: string;
@@ -18,17 +19,9 @@ export interface ReconModel {
     Create_UserId?:string;
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;
-    Last_Update_Timestamp?: string
+    Last_Update_Timestamp?: string;
+    isEditing?: boolean;
   }
-
-  // export interface KeysModel {
-  
-  //   Src_Tbl_Key:string;
-  //   Trgt_Tbl_Key: string;
-  //   Var_Tbl_Key: string;
-  //   Adj_Tbl_Key: String;
-   
-  // }
   export interface MeasuresModel {
     id:string;
     Recon_Id:string,
@@ -39,5 +32,7 @@ export interface ReconModel {
     Create_UserId?:string;
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;
-    Last_Update_Timestamp?: string
+    Last_Update_Timestamp?: string;
+    isEditing?: boolean;
+
   }

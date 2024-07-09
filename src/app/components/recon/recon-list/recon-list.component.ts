@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { ApiService } from '../../../services/api.service'
 import { BreadcrumbService } from '../../../services/bredcrumb.servcie'
 import { Router } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
 
 export interface ReconData {
   reconId: number;
@@ -15,6 +16,7 @@ export interface ReconData {
   status: string;
   createdBy: string;
   createdOn: Date;
+  isEditing?:boolean
 }
 @Component({
   selector: 'app-recon-list',
@@ -32,8 +34,10 @@ export class ReconListComponent implements OnInit, AfterViewInit{
     'createdBy',
     'createdOn',
   ];
+  namesList = ["data", "data2", "data3"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  @ViewChild(MatSort) sort!: MatSort; //the ! (non-null assertion operator) or by providing an initial value
+  ITEM_PER_PAGE = 5;
   constructor(private dialog: MatDialog, private _apiService: ApiService, 
     private _breadcrumbService: BreadcrumbService, private _router: Router) {
     this.dataSource = new MatTableDataSource<ReconData>([]);
@@ -44,22 +48,21 @@ export class ReconListComponent implements OnInit, AfterViewInit{
     this.getAllReacon();
   }
   ngAfterViewInit() {
-    if (this.paginator) {
       this.dataSource.paginator = this.paginator;
-      this.paginator.pageSize = 5; // Set default page size
-    } else {
-      console.error('MatPaginator is not available');
-    }
+      this.paginator.pageSize = this.ITEM_PER_PAGE; // Set default page size
+      this.dataSource.sort = this.sort;
   }
   getAllReacon() {
     this._apiService.getAllRecon().subscribe((data:ReconData[])=> {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort  = this.sort
      })
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log("this.dataSource", this.dataSource)
   }
   createRecon() {
     this._breadcrumbService.setBreadcrumbs([
@@ -68,5 +71,9 @@ export class ReconListComponent implements OnInit, AfterViewInit{
     ]);
     // Navigate to the create recon page
     this._router.navigate(['/create-recon']);
+  }
+
+  editRecon(recon:any) {
+     recon.isEditing = true;
   }
 }
