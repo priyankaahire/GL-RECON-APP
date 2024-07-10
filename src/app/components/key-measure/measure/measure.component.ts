@@ -52,6 +52,8 @@ export class MeasureComponent {
       data: {
         title: 'Delete Measures',
         message: 'Are you sure you want to delete all rows?',
+        firstButtonName: 'No',
+        secondButtonName: 'Yes'
       },
     });
 
@@ -75,6 +77,8 @@ export class MeasureComponent {
       data: {
         title: `Delete key ${selected.id}`,
         message: 'Are you sure you want to delete the row?',
+        firstButtonName: 'No',
+        secondButtonName: 'Yes'
       },
     });
 
@@ -87,5 +91,28 @@ export class MeasureComponent {
       }
     });
    
+  }
+  validateAndAdjustColumns(row: MeasuresModel): void {
+    if (row.isEditMode) {
+      // Validate and adjust variance
+      if (!this.variances.includes(row.Var_Tbl_Measure)) {
+        row.Var_Tbl_Measure = ''; // Set variance to empty if not found in options
+      }
+
+      // Validate and adjust source
+      if (!this.sources.includes(row.Src_Tbl_Measure)) {
+        row.Src_Tbl_Measure = ''; // Set source to empty if not found in options
+      }
+
+      // Validate and adjust target
+      if (!this.targets.includes(row.Trgt_Tbl_Measure)) {
+        row.Trgt_Tbl_Measure = ''; // Set target to empty if not found in options
+      }
+
+      // Validate and adjust adj
+      if (!this.adjs.includes(row.Adj_Tbl_Measure)) {
+        row.Adj_Tbl_Measure = ''; // Set adj to empty if not found in options
+      }
+    }
   }
 }

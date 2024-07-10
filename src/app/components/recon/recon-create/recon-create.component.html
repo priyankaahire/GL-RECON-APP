@@ -1,6 +1,6 @@
 <div class="container">
   <div class="form-container">
-    <form class="recon-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="recon-form" [formGroup]="form">
      
       <section>
         <h3>Create Recon</h3>
@@ -241,26 +241,32 @@
       <section>
         <div class="form-row">
           <mat-form-field appearance="fill" class="recon-full-width">
-            <mat-label>Source Filter</mat-label>
-            <mat-select formControlName="sourcefilter">
+            <mat-label>Source Filter Flag</mat-label>
+            <mat-select formControlName="sourcefilterflag">
               <mat-option
-                *ngFor="let fil of sourceFilter"
+                *ngFor="let fil of fiterFlagOption"
                 [value]="fil.id"
               >
                 {{ fil.value }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="sourcefilterflag?.hasError('required')">
+              Table is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="recon-full-width">
-            <mat-label>Target Filter</mat-label>
-            <mat-select formControlName="targetfilter">
+            <mat-label>Target Filter Flag</mat-label>
+            <mat-select formControlName="targetfilterflag">
               <mat-option
-                *ngFor="let fil of targetFilter"
+                *ngFor="let fil of fiterFlagOption"
                 [value]="fil.id"
               >
                 {{ fil.value }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="targetfilterflag?.hasError('required')">
+              Table is required
+            </mat-error>
           </mat-form-field>
          
         </div>
@@ -268,8 +274,8 @@
       <!-- Section 3: Buttons -->
       <section>
         <div class="form-button-row">
-          <button mat-raised-button type="cancel">Cancel</button>
-          <button color="primary" mat-raised-button type="submit">Submit</button>
+          <button mat-raised-button type="cancel" (click)="cancelRecon()">Cancel</button>
+          <button [disabled]="!this.form.valid" color="primary" mat-raised-button (click)="saveRecon()">Submit</button>
         </div>
       </section>
     </form>

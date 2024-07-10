@@ -30,7 +30,7 @@ export interface ReconModel {
     Src_Tbl_Measure:string;
     Trgt_Tbl_Measure: string;
     Var_Tbl_Measure: string;
-    Adj_Tbl_Measure: String;
+    Adj_Tbl_Measure: string;
     Create_UserId?:string;
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;

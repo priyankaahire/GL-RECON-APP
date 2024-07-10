@@ -62,6 +62,8 @@ export class KeysComponent implements OnChanges {
       data: {
         title: 'Delete Keys',
         message: 'Are you sure you want to delete all rows?',
+        firstButtonName: 'No',
+        secondButtonName: 'Yes'
       },
     });
 
@@ -87,6 +89,8 @@ export class KeysComponent implements OnChanges {
       data: {
         title: `Delete key ${selected.id}`,
         message: 'Are you sure you want to delete the row?',
+        firstButtonName: 'No',
+        secondButtonName: 'Yes'
       },
     });
 

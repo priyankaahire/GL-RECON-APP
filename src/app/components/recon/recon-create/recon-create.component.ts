@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data-service';
+import { MessageActionDialogComponent } from '../../message-action-dialog/message-action-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-recon-create',
@@ -25,7 +27,11 @@ export class ReconCreateComponent {
   adjustmentTable:any = [];
   targetFilter:any = [];
   sourceFilter:any = [];
-  constructor(private fb: FormBuilder, private _dataService: DataService, private _router: Router) {
+  fiterFlagOption:any = [
+    {id:"1", value:"Yes"},
+    {id:"0", value:"No"}
+  ]
+  constructor(private fb: FormBuilder, private _dataService: DataService, private router: Router, private dialog: MatDialog) {
     this.form = this.fb.group({
       reconName: ['', Validators.required],
       frequency: ['', Validators.required],
@@ -41,8 +47,8 @@ export class ReconCreateComponent {
       adjustmenttable:['', Validators.required],
       adjustmentschema:['', Validators.required],
       adjustmentdb:['', Validators.required],
-      sourcefilter:['', !Validators.required],
-     targetfilter:['', !Validators.required],
+      sourcefilterflag:['', Validators.required],
+      targetfilterflag:['', Validators.required],
     });
   }
   ngOnInit():void {
@@ -111,19 +117,36 @@ export class ReconCreateComponent {
   get adjustmentdb() {
     return this.form.get('adjustmentdb');
   }
-  get sourcefilter() {
-    return this.form.get('sourcefilter');
+  get sourcefilterflag() {
+    return this.form.get('sourcefilterflag');
   }
-  get targetfilter() {
-    return this.form.get('targetfilter');
+  get targetfilterflag() {
+    return this.form.get('targetfilterflag');
   }
-  onSubmit() {
+  saveRecon() {
     if (this.form.valid) {
       console.log(this.form.value);
-      this._router.navigate(['./key-measure'])
-    } else {
-      this._router.navigate(['./key-measure'])
-
+      this.router.navigate(['./key-measure'])
     }
   }
+
+ 
+    cancelRecon() {
+      const dialogRef = this.dialog.open(MessageActionDialogComponent, {
+        width: '365px',
+        data: {
+          title: `Cancel Recon`,
+          message: 'There are unsaved changes. Do you want to Cancel?',
+          firstButtonName: 'No',
+          secondButtonName: 'Yes'
+        },
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === 'ok') {
+            this.router.navigate(['/recon'])
+        }
+      });
+    }
+  
 }
