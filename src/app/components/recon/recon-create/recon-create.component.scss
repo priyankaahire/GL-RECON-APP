@@ -3,7 +3,7 @@
   height: 100%;
 }
 .form-container {
-  width:80%;
+  width:60%;
   border: 1px solid #ebe7e7;
   padding: 8px;
 }
@@ -54,4 +54,11 @@ button {
 }
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: #fff !important; /* Replace with your desired background color */
+}
+
+.ellipsis {
+  max-width: 150px; /* Adjust as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

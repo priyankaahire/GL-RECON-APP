@@ -24,52 +24,59 @@
   </div>
 
   <!-- Mat Table -->
-  <div *ngIf="dataSource">
+  <div *ngIf="dataSource" class="table-container">
     <table mat-table [dataSource]="dataSource" matSort class="mat-table" matSort >
       <!-- Columns -->
+    
       <ng-container matColumnDef="reconId">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="editRecon(element)">
-            <mat-icon>edit</mat-icon>
-          </button>
+        <th mat-header-cell *matHeaderCellDef  class="column-reconid sticky-header" mat-sort-header>Recon Id</th>
+        <td mat-cell *matCellDef="let element" class="column-reconid" title={{element.reconId}}>
+          {{ element.reconId }}
         </td>
       </ng-container>
       <ng-container matColumnDef="reconName">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Recon Name</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="column-reconname sticky-header">Recon Name</th>
+        <td mat-cell *matCellDef="let element" class="column-reconname" title={{element.reconName}}>
           {{ element.reconName }}
         </td>
       </ng-container>
       <ng-container matColumnDef="source">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-source sticky-header">Source</th>
+        <td mat-cell *matCellDef="let element" class="column-source" title={{element.source}}>
           {{ element.source }}
         </td>
        
       </ng-container>
       <ng-container matColumnDef="target" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Target</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-target sticky-header">Target</th>
+        <td mat-cell *matCellDef="let element" class="column-target" title={{element.target}}>
           {{ element.target }}
         </td>
       </ng-container>
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-status sticky-header">Status</th>
+        <td mat-cell *matCellDef="let element" class="column-status" title={{element.status}}>
           {{ element.status }}
         </td>
       </ng-container>
+      <ng-container matColumnDef="createdOn">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-createdon sticky-header">Created On</th>
+        <td mat-cell *matCellDef="let element" class="column-createdon" title={{element.createdOn}}>
+          {{ element.createdOn }}
+        </td>
+      </ng-container>
       <ng-container matColumnDef="createdBy">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column-creadtedby sticky-header">Created By</th>
+        <td mat-cell *matCellDef="let element" class="column-creadtedby" title={{element.createdBy}}>
           {{ element.createdBy }}
         </td>
       </ng-container>
-      <ng-container matColumnDef="createdOn">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.createdOn }}
+      <ng-container matColumnDef="action" >
+        <th mat-header-cell *matHeaderCellDef class="column-action sticky-header">Actions</th>
+        <td mat-cell *matCellDef="let element" class="column-action">
+          <button mat-icon-button (click)="editRecon(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
         </td>
       </ng-container>
       <!-- Rows -->

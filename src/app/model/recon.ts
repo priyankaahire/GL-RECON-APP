@@ -38,3 +38,12 @@ export interface ReconModel {
     isEditMode?: boolean;
 
   }
+
+  export interface FilterParams { 
+    page: number;
+    page_size: number;
+    sort_key: string;
+    sort_order: 'asc' | 'desc';
+    search_query: string;
+  }
+

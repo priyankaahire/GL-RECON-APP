@@ -33,11 +33,14 @@ export class ReconListComponent implements OnInit, AfterViewInit{
     'status',
     'createdBy',
     'createdOn',
+    'action'
   ];
   namesList = ["data", "data2", "data3"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort; //the ! (non-null assertion operator) or by providing an initial value
   ITEM_PER_PAGE = 5;
+  total: number = 0;
+  searchQuery: string = '';
   constructor(private dialog: MatDialog, private _apiService: ApiService, 
     private _breadcrumbService: BreadcrumbService, private _router: Router) {
     this.dataSource = new MatTableDataSource<ReconData>([]);
@@ -51,8 +54,19 @@ export class ReconListComponent implements OnInit, AfterViewInit{
       this.dataSource.paginator = this.paginator;
       this.paginator.pageSize = this.ITEM_PER_PAGE; // Set default page size
       this.dataSource.sort = this.sort;
+
+      this.paginator.page.subscribe(() => this.getAllReacon());
+      this.sort.sortChange.subscribe(() => this.getAllReacon());
   }
   getAllReacon() {
+    const params = {
+      page: this.paginator ? this.paginator.pageIndex + 1 : 1,
+      page_size: this.paginator ? this.paginator.pageSize : this.ITEM_PER_PAGE,
+      sort_key: this.sort ? this.sort.active : 'id',
+      sort_order: this.sort ? this.sort.direction : 'asc',
+      search_query: this.searchQuery
+    };
+    
     this._apiService.getAllRecon().subscribe((data:ReconData[])=> {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
@@ -61,7 +75,8 @@ export class ReconListComponent implements OnInit, AfterViewInit{
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase(); // Client side
+    this.searchQuery = filterValue.trim().toLowerCase(); // Server side
     console.log("this.dataSource", this.dataSource)
   }
   createRecon() {
