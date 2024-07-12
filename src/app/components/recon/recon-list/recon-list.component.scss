@@ -30,7 +30,7 @@
 }
 .mat-table {
   width: 100%;
- // border-collapse: collapse;
+  // border-collapse: collapse;
   min-width: 1000px;
   display: block;
   th,
@@ -55,7 +55,6 @@
   }
 }
 
-
 .mat-header-row {
   position: sticky;
   top: 0;
@@ -68,43 +67,43 @@
   background: white;
   z-index: 1;
 }
-.column-reconid{
-  width:150px;
+.column-reconid {
+  width: 150px;
   max-width: 100px;
 }
-.column-reconname{
-  width:350px;
+.column-reconname {
+  width: 350px;
   max-width: 300px;
 }
-.column-source{
-  width:300px;
+.column-source {
+  width: 300px;
   max-width: 250px;
 }
-.column-target{
-  width:300px;
+.column-target {
+  width: 300px;
   max-width: 250px;
 }
-.column-status{
-  width:150px;
+.column-status {
+  width: 150px;
   max-width: 100px;
 }
 .column-creadtedby {
-  width:300px;
+  width: 300px;
   max-width: 250px;
 }
 .column-createdon {
-  width:200px;
+  width: 200px;
   max-width: 150px;
 }
 .column-action {
-  width:100px;
+  width: 100px;
 }
-.no-data-message{
+.no-data-message {
   display: flex;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 400;
-    margin: 12px 0;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 12px 0;
 }
 
 .mat-paginator {
@@ -112,7 +111,11 @@
   margin-top: 10px;
 }
 
-mat-paginator[disabled] {
+.custom-paginator[disabled] {
   pointer-events: none;
   opacity: 0.5;
+}
+.custom-paginator {
+  position: sticky;
+  bottom: 0;
 }
