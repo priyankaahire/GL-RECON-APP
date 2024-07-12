@@ -88,13 +88,13 @@ export class ReconCreateComponent {
       this._dataService.getAdjustmentSchema().subscribe(data => this.databases.adjustment.schema = data);
       this._dataService.getAdjustmentTable().subscribe(data => this.databases.adjustment.table = data);
     }
-    this._dataService.getTargetFilter().subscribe(data => this.filters.taget = data);
-    this._dataService.getSourceFilter().subscribe(data => this.filters.source = data);
   }
  
   saveRecon() {
     if (this.form.valid) {
       console.log(this.form.value);
+      this.router.navigate(['./key-measure'])
+    } else {
       this.router.navigate(['./key-measure'])
     }
   }
@@ -111,23 +111,8 @@ export class ReconCreateComponent {
   
       dialogRef.afterClosed().subscribe((result) => {
         if (result === 'ok') {
-            this.router.navigate(['/recon'])
+            this.router.navigate(['./default-recon'])
         }
       });
     }
-
-  
-  // loadDatabaseData(type: string) {
-  //   (this._dataService[`get${this.capitalizeFirstLetter(type)}Database` ] as any)()
-  //   .subscribe((data: any) => this.databases[type].db = data);
-
-  // (this._dataService[`get${this.capitalizeFirstLetter(type)}Schema`] as any)()
-  //   .subscribe((data: any) => this.databases[type].schema = data);
-
-  // (this._dataService[`get${this.capitalizeFirstLetter(type)}Table`] as any)()
-  //   .subscribe((data: any) => this.databases[type].table = data);
-  // }
-  // capitalizeFirstLetter(string: any):any {
-  //   return string.charAt(0).toUpperCase() + string.slice(1);
-  // }
 }

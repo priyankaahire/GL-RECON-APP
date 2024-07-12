@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import { MeasureComponent } from './measure/measure.component';
 import { MeasuresModel, KeysModel } from 'src/app/model/recon';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { MessageActionDialogComponent } from '../message-action-dialog/message-action-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { KeysComponent } from './keys/keys.component';
 @Component({
   selector: 'app-key-measure',
   templateUrl: './key-measure.component.html',
@@ -13,13 +14,16 @@ import { Router } from '@angular/router';
 })
 export class KeyMeasureComponent implements AfterViewInit {
 
-  keysDataSource:KeysModel[] = []
-  measureDataSource:MeasuresModel[] = []
+  keysDataSource:any= {};
+  measureDataSource:any= {};
   @ViewChild(MeasureComponent) measureComp!: MeasureComponent;
+  @ViewChild(KeysComponent) keysComp!: KeysComponent;
+  
+
   constructor(private _apiService: ApiService, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit() {
-    this.getKeys();
+   
   }
   ngAfterViewInit() {
     if(this.measureComp) {
@@ -28,27 +32,24 @@ export class KeyMeasureComponent implements AfterViewInit {
         this.measureDataSource = modifiedData;
       });
     }
-  }
-  getKeys() {
-    this._apiService.getAllKeys().subscribe((data: KeysModel[]) => {
-      this.keysDataSource = data;
-      console.log(this.keysDataSource)
-    });
-  }
-  handleKeysData(modifiedData: KeysModel[]) {
-    console.log('Keys data received in parent:', modifiedData);
-    this.keysDataSource = modifiedData;
-    // Handle the modified data from KeysComponent here
+    if(this.keysComp) {
+      this.keysComp.dataModified.subscribe((modifiedData: KeysModel[]) => {
+        console.log('Data received from Child to parent:', modifiedData);
+        this.keysDataSource = modifiedData;
+      });
+     
+    }
   }
 
   onSave() {
-    // We have to check each row each elment should not empty if empty set the solution
-    this.keysDataSource.forEach((row:KeysModel) => {
-      row.hasError = !row.Src_Tbl_Key || !row.Trgt_Tbl_Key || !row.Adj_Tbl_Key || !row.Var_Tbl_Key;
-      if(row.hasError) {
-        row.isEditMode = true;
-      }
-    });
+    if (this.keysComp && this.measureComp) {
+      const responseKeys = this.keysComp.validateAndSave();
+      const responseMeasures = this.measureComp.validateAndSave();
+      console.log('Keys data received in parent:', responseKeys, responseMeasures);
+      this.router.navigate(['./recon'])
+    } else {
+      console.error('keys component not initialized');
+    }
   }
   cancelRecon() {
     const dialogRef = this.dialog.open(MessageActionDialogComponent, {
@@ -63,7 +64,7 @@ export class KeyMeasureComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-          this.router.navigate(['/recon'])
+          this.router.navigate(['./default-recon'])
       }
     });
   }

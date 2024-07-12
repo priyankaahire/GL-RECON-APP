@@ -19,11 +19,13 @@
   .mat-table {
     width: 100%;
     border-collapse: collapse;
-  
+    min-width: 1000px;
     th,
     td {
-      padding: 8px;
       text-align: left;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
   
     th {
@@ -38,7 +40,34 @@
       background-color: #ddd;
     }
   }
-
-  .error-row {
-    border: 1px solid #981226 !important; /* Light red background */
+  .column-action  {
+    width: 100px;
+  }
+  .column-source  {
+    width: 200px;
+    max-width: 150px;
+  }
+  .column-target  {
+    width: 200px;
+    max-width: 150px;
+  }
+  .column-variance  {
+    width: 200px;
+    max-width: 150px;
+  }
+  .column-adj  {
+    width: 200px;
+    max-width: 150px;
+  }
+  
+  ::ng-deep .key-datasource .error-row .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    border: 1px solid red !important; /* Light red background */
+  }
+  ::ng-deep .key-datasource .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #fff !important; /* Replace with your desired background color */
+  }
+  .mat-icon{
+    font-size: 20px !important;
+    height: 20px !important;
+    width:20px !important
   }

@@ -11,7 +11,9 @@ import { MessageActionDialogComponent } from '../../message-action-dialog/messag
   styleUrls: ['./measure.component.scss'],
 })
 export class MeasureComponent {
-  measuresDataSource = new MatTableDataSource<MeasuresModel>([]);
+  measuresDataSource!: MatTableDataSource<{ row: MeasuresModel, errors: Partial<Record<keyof MeasuresModel, boolean>>, isEditMode: boolean }>;
+  @Output() dataModified = new EventEmitter<MeasuresModel[]>();
+  
   displayedMeasureColumns: string[] = [
     'id',
     'Src_Tbl_Measure',
@@ -23,28 +25,51 @@ export class MeasureComponent {
   targets= ['Target 1', 'Target 2', 'Target 3'];
   adjs= ['Adj 1', 'Adj 2', 'Adj 3'];
   variances= ['Variance 1', 'Variance 2', 'Variance 3']
-
-  @Output() dataModified = new EventEmitter<MeasuresModel[]>();
+  validateFeilds = ['Src_Tbl_Measure', 'Trgt_Tbl_Measure','Var_Tbl_Measure','Adj_Tbl_Measure',]
+  // Define validation functions for each field
+  validationConfig: { [key in keyof MeasuresModel]?: (value: any) => boolean } = {
+    Src_Tbl_Measure: value => !!value && this.sources.includes(value),
+    Trgt_Tbl_Measure: value => !!value && this.variances.includes(value),
+    Var_Tbl_Measure: value => !!value && this.targets.includes(value),
+    Adj_Tbl_Measure: value => !!value && this.adjs.includes(value)
+  };
   constructor(private _apiService: ApiService, public dialog: MatDialog) {}
+
   ngOnInit() {
     this.getMeasures();
   }
   getMeasures() {
     this._apiService.getAllMeasures().subscribe((data: MeasuresModel[]) => {
-      this.measuresDataSource = new MatTableDataSource(data);
-      this.dataModified.emit(this.measuresDataSource.data)
+      this.measuresDataSource = new MatTableDataSource(this.initializeData(data));
+      this.dataModified.emit(this.measuresDataSource.data.map(item => item.row))
     });
   }
+  initializeData(data: MeasuresModel[]): { row: MeasuresModel, errors: Partial<Record<keyof MeasuresModel, boolean>>, isEditMode: boolean }[] {
+    return data.map(item => (
+       {
+       row: item,
+       errors: {},
+       isEditMode: false
+     }));
+   }
   addRow() {
     const newRow: MeasuresModel = {
       id: `${this.measuresDataSource.data.length} ` + 1,
       Recon_Id: '',
-      Src_Tbl_Measure: 'new',
-      Trgt_Tbl_Measure: ' new ',
-      Var_Tbl_Measure: 'new ',
-      Adj_Tbl_Measure: 'new',
+      Src_Tbl_Measure: '',
+      Trgt_Tbl_Measure: '',
+      Var_Tbl_Measure: '',
+      Adj_Tbl_Measure: '',
     };
-    this.measuresDataSource.data = [...this.measuresDataSource.data, newRow]; // Add the new row to the data source
+    const newRowData = { row: newRow, errors: {
+      Src_Tbl_Measure: true,
+      Trgt_Tbl_Measure: true,
+      Var_Tbl_Measure: true,
+      Adj_Tbl_Measure: true,
+    }, isEditMode: true };
+    this.measuresDataSource.data = [...this.measuresDataSource.data, newRowData]; // Add the new row to the data source
+   // this.measuresDataSource.errors = {}
+    this.dataModified.emit(this.measuresDataSource.data.map(item => item.row))
   }
   removeAll() {
     const dialogRef = this.dialog.open(MessageActionDialogComponent, {
@@ -60,16 +85,10 @@ export class MeasureComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
         this.measuresDataSource.data = [];
-        this.dataModified.emit(this.measuresDataSource.data)
+        this.measuresDataSource = new MatTableDataSource(this.initializeData([]));
+        this.dataModified.emit(this.measuresDataSource.data.map(item => item.row))
       }
     });
-  }
-  startEdit(element: MeasuresModel) {
-    element.isEditMode = true;
-    console.log('Edit', element);
-  }
-  saveEdit(row: MeasuresModel) {
-    row.isEditMode = false;
   }
   deleteRow(selected: MeasuresModel) {
     const dialogRef = this.dialog.open(MessageActionDialogComponent, {
@@ -85,34 +104,66 @@ export class MeasureComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
         this.measuresDataSource.data = this.measuresDataSource.data.filter(
-          (element) => element.id !== selected.id
+          (element) => element.row.id !== selected.id
         );
-        this.dataModified.emit(this.measuresDataSource.data)
+        this.dataModified.emit(this.measuresDataSource.data.map(item => item.row))
       }
     });
    
   }
-  validateAndAdjustColumns(row: MeasuresModel): void {
-    if (row.isEditMode) {
-      // Validate and adjust variance
-      if (!this.variances.includes(row.Var_Tbl_Measure)) {
-        row.Var_Tbl_Measure = ''; // Set variance to empty if not found in options
+  startEdit(rowData: { row: MeasuresModel, errors: Partial<Record<keyof MeasuresModel, boolean>>, isEditMode: boolean }) {
+    rowData.isEditMode = true;
+    Object.keys(rowData.row).forEach(field => {
+      if(this.validateFeilds.includes(field)) {
+        this.validateRow(rowData, field as keyof MeasuresModel);
       }
-
-      // Validate and adjust source
-      if (!this.sources.includes(row.Src_Tbl_Measure)) {
-        row.Src_Tbl_Measure = ''; // Set source to empty if not found in options
-      }
-
-      // Validate and adjust target
-      if (!this.targets.includes(row.Trgt_Tbl_Measure)) {
-        row.Trgt_Tbl_Measure = ''; // Set target to empty if not found in options
-      }
-
-      // Validate and adjust adj
-      if (!this.adjs.includes(row.Adj_Tbl_Measure)) {
-        row.Adj_Tbl_Measure = ''; // Set adj to empty if not found in options
-      }
+    });
+  }
+  onSelectChange(rowData: { row: MeasuresModel, errors: Partial<Record<keyof MeasuresModel, boolean>> }, field: keyof MeasuresModel) {
+    const isFieldValid = rowData.row[field as keyof MeasuresModel] =='' ? true : false;
+    rowData.errors[field] = isFieldValid;
+  }
+   // Example validation function
+  validateAndSave():any{
+    if (this.validateData()) {
+      return this.measuresDataSource.data.map(item => item.row)
+    } else {
+      console.log('Validation failed');
     }
   }
+
+  private validateData(): boolean {
+    let isValid = true;
+    this.measuresDataSource.data.forEach(item => {
+      if(item.isEditMode) {
+        Object.keys(item.row).forEach(field => {
+          if(this.validateFeilds.includes(field) ) {
+            const isFieldValid = this.validateField(item.row[field as keyof MeasuresModel], field as keyof MeasuresModel);
+            item.errors = { ...item.errors, [field]: !isFieldValid };
+              if (!isFieldValid) {
+                isValid = false;
+              }
+          }
+        });
+         // After processing all fields, check if any error is present
+         if(Object.values(item.errors).includes(true)) {
+          item.isEditMode = true;
+          isValid = false;
+        } else {
+          isValid = true
+        }
+      }
+      
+    });
+    return isValid;
+  }
+  private validateField(value: any, fieldName: keyof MeasuresModel): boolean {
+    const validator = this.validationConfig[fieldName];
+    return validator ? validator(value) : true;
+  }
+  private validateRow(rowData: { row: MeasuresModel, errors: Partial<Record<keyof MeasuresModel, boolean>> }, field: keyof MeasuresModel) {
+    const isFieldValid = this.validateField(rowData.row[field], field);
+    rowData.errors[field] = !isFieldValid;
+  }
+
 }

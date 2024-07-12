@@ -2,7 +2,7 @@
   margin: 20px;
   height: 100%;
 }
-.form-container {
+.recon-form-container {
   width:60%;
   border: 1px solid #ebe7e7;
   padding: 8px;
@@ -52,9 +52,10 @@ button {
   font-size: 0.83em;
   font-weight: bold;
 }
-::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+::ng-deep .recon-form-container .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: #fff !important; /* Replace with your desired background color */
 }
+
 
 .ellipsis {
   max-width: 150px; /* Adjust as needed */

@@ -6,7 +6,7 @@
       <button mat-flat-button color="primary" class="add-keys-button" (click)="addRow()" >
         Add
       </button>
-      <button mat-flat-button color="primary" class="remove-keys-button" (click)="removeAll()" [disabled]="keysDataSource.data.length === 0">
+      <button mat-flat-button color="primary" class="remove-keys-button" (click)="removeAll()" [disabled]="keysDataSource && keysDataSource.data.length === 0">
         Remove All
       </button>
     </div>
@@ -14,88 +14,88 @@
       <table mat-table [dataSource]="keysDataSource" class="mat-table">
         <!-- Columns -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let row">
-            <button *ngIf="!row.isEditMode" mat-icon-button (click)="startEdit(row)">
+          <th mat-header-cell *matHeaderCellDef class="column-action ">Actions</th>
+          <td mat-cell *matCellDef="let rowData" class="column-action">
+            <button *ngIf="!rowData.isEditMode" mat-icon-button (click)="startEdit(rowData)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button *ngIf="row.isEditMode" mat-icon-button (click)="saveEdit(row)">
-              <mat-icon>check</mat-icon>
-            </button>
-            <button mat-icon-button  (click)="deleteRow(row)">
-              <mat-icon>cancel</mat-icon>
+            <button mat-icon-button  (click)="deleteRow(rowData)">
+              <mat-icon>clear</mat-icon>
             </button>
           </td>
         </ng-container>
 
         <!-- Define columns with custom header names -->
         <ng-container matColumnDef="Src_Tbl_Key">
-          <th mat-header-cell *matHeaderCellDef>Source Table Key</th>
-          <td mat-cell *matCellDef="let row" >
-            <div *ngIf="row.isEditMode; else viewSource">
-              <mat-form-field [class.error-row]="row.hasError">
-                <mat-select [(value)]="row.Src_Tbl_Key" >
+          <th mat-header-cell *matHeaderCellDef class="column-source ">Source Table Key</th>
+          <td mat-cell *matCellDef="let rowData" class="column-source " >
+            <div *ngIf="rowData.isEditMode; else viewSource">
+              <mat-form-field [class.error-row]="rowData.errors.Src_Tbl_Key">
+                <mat-select [(value)]="rowData.row.Src_Tbl_Key" (selectionChange)="onSelectChange(rowData, 'Src_Tbl_Key')">
                   <mat-option *ngFor="let name of sources" [value]="name">{{name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <ng-template #viewSource>
-              {{row.Src_Tbl_Key}}
+              {{rowData.row.Src_Tbl_Key}}
             </ng-template>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="Trgt_Tbl_Key">
-          <th mat-header-cell *matHeaderCellDef>Target Table Key</th>
-          <td mat-cell *matCellDef="let row" [class.error-row]="row.hasError">
-            <div *ngIf="row.isEditMode; else viewTraget">
-              <mat-form-field>
-                <mat-select [(value)]="row.Trgt_Tbl_Key">
+          <th mat-header-cell *matHeaderCellDef class="column-target">Target Table Key</th>
+          <td mat-cell *matCellDef="let rowData" class="column-target">
+            <div *ngIf="rowData.isEditMode; else viewTraget">
+              <mat-form-field appearance="fill" [class.error-row]="rowData.errors.Trgt_Tbl_Key">
+                <mat-select [(value)]="rowData.row.Trgt_Tbl_Key" (selectionChange)="onSelectChange(rowData, 'Trgt_Tbl_Key')">
                   <mat-option *ngFor="let name of targets" [value]="name">{{name}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="rowData.hasError">
+                  Please select Target Table Key
+                </mat-error>
               </mat-form-field>
             </div>
             <ng-template #viewTraget>
-              {{row.Trgt_Tbl_Key}}
+              {{rowData.row.Trgt_Tbl_Key}}
             </ng-template>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="Var_Tbl_Key">
-          <th mat-header-cell *matHeaderCellDef>Variance Table Key</th>
-          <td mat-cell *matCellDef="let row" [class.error-row]="row.hasError">
-            <div *ngIf="row.isEditMode; else viewVariance">
-              <mat-form-field>
-                <mat-select [(value)]="row.Var_Tbl_Key">
+          <th mat-header-cell *matHeaderCellDef class="column-variance">Variance Table Key</th>
+          <td mat-cell *matCellDef="let rowData" class="column-variance">
+            <div *ngIf="rowData.isEditMode; else viewVariance">
+              <mat-form-field [class.error-row]="rowData.errors.Var_Tbl_Key">
+                <mat-select [(value)]="rowData.row.Var_Tbl_Key" (selectionChange)="onSelectChange(rowData, 'Var_Tbl_Key')">
                   <mat-option *ngFor="let name of variances" [value]="name">{{name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <ng-template #viewVariance>
-              {{row.Var_Tbl_Key}}
+              {{rowData.row.Var_Tbl_Key}}
             </ng-template>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="Adj_Tbl_Key">
-          <th mat-header-cell *matHeaderCellDef>Adjustment Table Key</th>
-          <td mat-cell *matCellDef="let row" [class.error-row]="row.hasError">
-            <div *ngIf="row.isEditMode; else viewAdjs">
-              <mat-form-field>
-                <mat-select [(value)]="row.Adj_Tbl_Key">
+          <th mat-header-cell *matHeaderCellDef class="column-adj">Adjustment Table Key</th>
+          <td mat-cell *matCellDef="let rowData" class="column-adj">
+            <div *ngIf="rowData.isEditMode; else viewAdjs">
+              <mat-form-field [class.error-row]="rowData.errors.Adj_Tbl_Key">
+                <mat-select [(value)]="rowData.row.Adj_Tbl_Key" (selectionChange)="onSelectChange(rowData, 'Adj_Tbl_Key')">
                   <mat-option *ngFor="let name of adjs" [value]="name">{{name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <ng-template #viewAdjs>
-              {{row.Adj_Tbl_Key}}
+              {{rowData.row.Adj_Tbl_Key}}
             </ng-template>
           </td>
         </ng-container>
         <!-- Header row -->
         <tr mat-header-row *matHeaderRowDef="displayedKeyColumns"></tr>
         <!-- Data rows -->
-        <tr mat-row *matRowDef="let row; columns: displayedKeyColumns"></tr>
+        <tr mat-row *matRowDef="let rowData; columns: displayedKeyColumns"></tr>
       </table>
        <!-- Display message if dataSource is empty -->
        <div *ngIf="keysDataSource.data.length == 0" class="no-data-message">

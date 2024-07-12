@@ -21,8 +21,7 @@ export interface ReconModel {
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;
     Last_Update_Timestamp?: string;
-    isEditMode?: boolean;
-    hasError?:boolean;
+   
   }
   export interface MeasuresModel {
     id:string;
@@ -35,7 +34,6 @@ export interface ReconModel {
     Created_Timestamp?:string;
     Last_Updated_UserID?: string;
     Last_Update_Timestamp?: string;
-    isEditMode?: boolean;
 
   }
 

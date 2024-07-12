@@ -1,0 +1,132 @@
+.container {
+    margin: 20px;
+    border: 1px solid #ebe7e7;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px;
+    gap: 10px;
+    padding: 2px;
+    justify-content: space-between
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align items to the start and end of container */
+
+  }
+  
+  .search-input {
+    padding: 8px;
+    margin-right: 10px; /* Space between input and search button */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .table-container {
+    width: 100%;
+    overflow: auto;
+    max-height: 400px; /* Adjust height as needed */
+  }
+  .mat-table {
+    width: 100%;
+    // border-collapse: collapse;
+    min-width: 1000px;
+    display: block;
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  
+    tr:hover {
+      background-color: #ddd;
+    }
+  }
+  
+  .mat-header-row {
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Ensure it is above other cells */
+    background: white; /* Background color to overlap other content */
+  }
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+  }
+  .column-reconid {
+    width: 150px;
+    max-width: 100px;
+  }
+  .column-reconname {
+    width: 350px;
+    max-width: 300px;
+  }
+  .column-source {
+    width: 300px;
+    max-width: 250px;
+  }
+  .column-target {
+    width: 300px;
+    max-width: 250px;
+  }
+  .column-status {
+    width: 150px;
+    max-width: 100px;
+  }
+  .column-creadtedby {
+    width: 300px;
+    max-width: 250px;
+  }
+  .column-createdon {
+    width: 200px;
+    max-width: 150px;
+  }
+  .column-action {
+    width: 100px;
+  }
+  .no-data-message {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 12px 0;
+  }
+  
+  .mat-paginator {
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .custom-paginator[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .custom-paginator {
+    position: sticky;
+    bottom: 0;
+  }
+  .header-label{
+    justify-content: flex-start;
+  }
+  .header-right {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+  }
+  

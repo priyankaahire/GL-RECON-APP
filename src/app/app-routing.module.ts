@@ -4,14 +4,16 @@ import { ReconListComponent } from './components/recon/recon-list/recon-list.com
 import { ReconCreateComponent } from './components/recon/recon-create/recon-create.component';
 import { KeyMeasureComponent } from './components/key-measure/key-measure.component';
 import { MeasureComponent } from './components/key-measure/measure/measure.component';
+import { DefaultReconListComponent } from './components/recon/default-recon-list/default-recon-list.component';
 
 const routes: Routes = [
-  { path:'recon', component: ReconListComponent,},
+  { path:'recon', component: ReconListComponent},
   { path:'create-recon', component: ReconCreateComponent},
   { path:'key-measure', component: KeyMeasureComponent},
   { path:'measure', component: MeasureComponent },
-  { path: '', redirectTo: '/recon', pathMatch: 'full' },
-  { path: '**', redirectTo: '/recon' } // Handle any other routes
+  { path:'default-recon', component: DefaultReconListComponent},
+  { path: '', redirectTo: '/default-recon', pathMatch: 'full' },
+  { path: '**', redirectTo: '/default-recon' } // Handle any other routes
 ];
 
 @NgModule({

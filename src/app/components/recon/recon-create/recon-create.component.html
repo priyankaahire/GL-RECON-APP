@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="form-container">
+  <div class="recon-form-container">
     <form class="recon-form" [formGroup]="form">
      
       <section>
@@ -246,7 +246,7 @@
             <mat-label>Source Filter Flag</mat-label>
             <mat-select formControlName="sourcefiltflag">
               <mat-option
-                *ngFor="let fil of filterFlagOptions.source"
+                *ngFor="let fil of filterFlagOptions"
                 [value]="fil.id"
               >
                 {{ fil.value }}
@@ -260,7 +260,7 @@
             <mat-label>Target Filter Flag</mat-label>
             <mat-select formControlName="targetfiltflag">
               <mat-option
-                *ngFor="let fil of filterFlagOptions.target"
+                *ngFor="let fil of filterFlagOptions"
                 [value]="fil.id"
               >
                 {{ fil.value }}

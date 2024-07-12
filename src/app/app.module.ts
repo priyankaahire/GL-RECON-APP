@@ -16,6 +16,8 @@ import { KeyMeasureComponent } from './components/key-measure/key-measure.compon
 import { MeasureComponent } from './components/key-measure/measure/measure.component';
 import { KeysComponent } from './components/key-measure/keys/keys.component';
 import { MessageActionDialogComponent } from './components/message-action-dialog/message-action-dialog.component';
+import { DefaultReconListComponent } from './components/recon/default-recon-list/default-recon-list.component';
+import { ReconEditComponent } from './components/recon/recon-edit/recon-edit.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { MessageActionDialogComponent } from './components/message-action-dialog
     KeyMeasureComponent,
     MeasureComponent,
     KeysComponent,
-    MessageActionDialogComponent
+    MessageActionDialogComponent,
+    DefaultReconListComponent,
+    ReconEditComponent
     
   ],
   imports: [

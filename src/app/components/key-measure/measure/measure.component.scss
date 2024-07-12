@@ -22,7 +22,6 @@
 
   th,
   td {
-    padding: 8px;
     text-align: left;
   }
 
@@ -37,4 +36,16 @@
   tr:hover {
     background-color: #ddd;
   }
+}
+
+::ng-deep .measures-datasource .error-row .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  border: 1px solid red !important; /* Light red background */
+}
+::ng-deep .measures-datasource .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #fff !important; /* Replace with your desired background color */
+}
+.mat-icon{
+  font-size: 20px !important;
+  height: 20px !important;
+  width:20px !important
 }

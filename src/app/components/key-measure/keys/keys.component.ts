@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { KeysModel } from 'src/app/model/recon';
@@ -10,8 +10,8 @@ import { MessageActionDialogComponent } from '../../message-action-dialog/messag
   templateUrl: './keys.component.html',
   styleUrls: ['./keys.component.scss'],
 })
-export class KeysComponent implements OnChanges {
-  //keysDataSource: MatTableDataSource<KeysModel>;
+export class KeysComponent implements OnInit {
+  keysDataSource!: MatTableDataSource<{ row: KeysModel, errors: Partial<Record<keyof KeysModel, boolean>>, isEditMode: boolean }>;
   displayedKeyColumns: string[] = [
     'id',
     'Src_Tbl_Key',
@@ -23,38 +23,61 @@ export class KeysComponent implements OnChanges {
   targets= ['Target 1', 'Target 2', 'Target 3'];
   adjs= ['Adj 1', 'Adj 2', 'Adj 3'];
   variances= ['Variance 1', 'Variance 2', 'Variance 3']
+  validateFeilds = ['Src_Tbl_Key',
+  'Trgt_Tbl_Key',
+  'Var_Tbl_Key',
+  'Adj_Tbl_Key']
   @Output() dataModified = new EventEmitter<KeysModel[]>();
-  @Input() dataSource: KeysModel[] = [];
-  keysDataSource!: MatTableDataSource<KeysModel>;
+
+  // Define validation functions for each field
+  validationConfig: { [key in keyof KeysModel]?: (value: any) => boolean } = {
+    Src_Tbl_Key: value => !!value && this.sources.includes(value),
+    Var_Tbl_Key: value => !!value && this.variances.includes(value),
+    Trgt_Tbl_Key: value => !!value && this.targets.includes(value),
+    Adj_Tbl_Key: value => !!value && this.adjs.includes(value)
+  };
+
 
   constructor(private _apiService: ApiService, public dialog: MatDialog) {
-   // this.keysDataSource = new MatTableDataSource(this.dataSource);
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["dataSource"]) {
-      const dataSourceChange = changes["dataSource"];
-      if (dataSourceChange.currentValue) {
-        this.keysDataSource = new MatTableDataSource<KeysModel>(dataSourceChange.currentValue);
-      }
-    }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes["dataSource"]) {
+  //     const dataSourceChange = changes["dataSource"];
+  //     if (dataSourceChange.currentValue) {
+  //       this.keysDataSource = new MatTableDataSource(this.initializeData(dataSourceChange.currentValue));
+  //     }
+  //   }
+  // }
+  ngOnInit() {
+    this.getKeys();
   }
   getKeys() {
     this._apiService.getAllKeys().subscribe((data: KeysModel[]) => {
-      this.keysDataSource = new MatTableDataSource(data);
-      this.dataModified.emit(this.keysDataSource.data);
+      this.keysDataSource = new MatTableDataSource(this.initializeData(data));
+      this.dataModified.emit(this.keysDataSource.data.map(item => item.row))
     });
   }
 
+  initializeData(data: KeysModel[]): { row: KeysModel, errors: Partial<Record<keyof KeysModel, boolean>>, isEditMode: boolean }[] {
+   return data.map(item => (
+      {
+      row: item,
+      errors: {},
+      isEditMode: false
+    }));
+  }
   addRow() {
     const newRow: KeysModel = {
       id: `${this.keysDataSource.data.length} ` + 1,
       Recon_Id: '',
-      Src_Tbl_Key: 'new',
-      Trgt_Tbl_Key: ' new',
-      Var_Tbl_Key: 'new ',
-      Adj_Tbl_Key: 'new',
+      Src_Tbl_Key: '',
+      Trgt_Tbl_Key: '',
+      Var_Tbl_Key: '',
+      Adj_Tbl_Key: '',
     };
-    this.keysDataSource.data = [...this.keysDataSource.data, newRow]; // Add the new row to the data source
+    const newRowData = { row: newRow, errors: {Src_Tbl_Key: true,Trgt_Tbl_Key: true,Var_Tbl_Key: true,Adj_Tbl_Key: true}, isEditMode: true };
+    this.keysDataSource.data = [...this.keysDataSource.data, newRowData]; // Add the new row to the data source
+    this.dataModified.emit(this.keysDataSource.data.map(item => item.row))
   }
   removeAll() {
     const dialogRef = this.dialog.open(MessageActionDialogComponent, {
@@ -70,18 +93,10 @@ export class KeysComponent implements OnChanges {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result === 'ok') {
         this.keysDataSource.data = [];
-        this.dataModified.emit(this.keysDataSource.data);
+        this.keysDataSource = new MatTableDataSource(this.initializeData([]));
+        this.dataModified.emit(this.keysDataSource.data.map(item => item.row))
       }
     });
-  }
-
-  startEdit(element: KeysModel) {
-    element.isEditMode = true;
-    console.log('Edit', element);
-    this.validateAndAdjustColumns(element)
-  }
-  saveEdit(row: KeysModel) {
-    row.isEditMode = false;
   }
   deleteRow(selected: KeysModel) {
     const dialogRef = this.dialog.open(MessageActionDialogComponent, {
@@ -97,36 +112,66 @@ export class KeysComponent implements OnChanges {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
         this.keysDataSource.data = this.keysDataSource.data.filter(
-          (element) => element.id !== selected.id
+          (element) => element.row.id !== selected.id
         );
-        this.dataModified.emit(this.keysDataSource.data);
+        this.dataModified.emit(this.keysDataSource.data.map(item => item.row))
       }
     });
    
   }
-
-  validateAndAdjustColumns(row: KeysModel): void {
-    if (row.isEditMode) {
-      // Validate and adjust variance
-      if (!this.variances.includes(row.Var_Tbl_Key)) {
-        row.Var_Tbl_Key = ''; // Set variance to empty if not found in options
+  startEdit(rowData: { row: KeysModel, errors: Partial<Record<keyof KeysModel, boolean>>, isEditMode: boolean }) {
+    rowData.isEditMode = true;
+    Object.keys(rowData.row).forEach(field => {
+      if(this.validateFeilds.includes(field)) {
+        this.validateRow(rowData, field as keyof KeysModel);
       }
-
-      // Validate and adjust source
-      if (!this.sources.includes(row.Src_Tbl_Key)) {
-        row.Src_Tbl_Key = ''; // Set source to empty if not found in options
-      }
-
-      // Validate and adjust target
-      if (!this.targets.includes(row.Trgt_Tbl_Key)) {
-        row.Trgt_Tbl_Key = ''; // Set target to empty if not found in options
-      }
-
-      // Validate and adjust adj
-      if (!this.adjs.includes(row.Adj_Tbl_Key)) {
-        row.Adj_Tbl_Key = ''; // Set adj to empty if not found in options
-      }
+    });
+  }
+  onSelectChange(rowData: { row: KeysModel, errors: Partial<Record<keyof KeysModel, boolean>> }, field: keyof KeysModel) {
+    const isFieldValid = rowData.row[field as keyof KeysModel] =='' ? true : false;
+    rowData.errors[field] = isFieldValid;
+  }
+   // Example validation function
+  validateAndSave():any{
+    if (this.validateData()) {
+      return this.keysDataSource.data.map(item => item.row)
+    } else {
+      console.log('Validation failed');
     }
   }
+  private validateData(): boolean {
+    let isValid = true;
+    this.keysDataSource.data.forEach(item => {
+      if(item.isEditMode) {
+        Object.keys(item.row).forEach(field => {
+          if(this.validateFeilds.includes(field) ) {
+            const isFieldValid = this.validateField(item.row[field as keyof KeysModel], field as keyof KeysModel);
+            item.errors = { ...item.errors, [field]: !isFieldValid };
+              if (!isFieldValid) {
+                isValid = false;
+              }
+          }
+        });
+         // After processing all fields, check if any error is present
+         if(Object.values(item.errors).includes(true)) {
+          item.isEditMode = true;
+          isValid = false;
+        } else {
+          isValid = true
+        }
+      }
+      
+    });
+    return isValid;
+  }
+  private validateField(value: any, fieldName: keyof KeysModel): boolean {
+    const validator = this.validationConfig[fieldName];
+    return validator ? validator(value) : true;
+  }
+  private validateRow(rowData: { row: KeysModel, errors: Partial<Record<keyof KeysModel, boolean>> }, field: keyof KeysModel) {
+    const isFieldValid = this.validateField(rowData.row[field], field);
+    rowData.errors[field] = !isFieldValid;
+  }
+
 
 }
