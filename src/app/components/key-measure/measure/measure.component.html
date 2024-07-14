@@ -30,7 +30,7 @@
               <div *ngIf="rowData.isEditMode; else viewSource">
                 <mat-form-field [class.error-row]="rowData.errors.Src_Tbl_Measure">
                   <mat-select [(value)]="rowData.row.Src_Tbl_Measure" (selectionChange)="onSelectChange(rowData, 'Src_Tbl_Measure')">
-                    <mat-option *ngFor="let name of sources" [value]="name">{{name}}</mat-option>
+                    <mat-option *ngFor="let src of sources" [value]="src?.id">{{src?.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -46,7 +46,7 @@
               <div *ngIf="rowData.isEditMode; else viewTraget">
                 <mat-form-field [class.error-row]="rowData.errors.Trgt_Tbl_Measure">
                   <mat-select [(value)]="rowData.row.Trgt_Tbl_Measure" (selectionChange)="onSelectChange(rowData, 'Trgt_Tbl_Measure')">
-                    <mat-option *ngFor="let name of targets" [value]="name">{{name}}</mat-option>
+                    <mat-option *ngFor="let target of targets" [value]="target?.id">{{target?.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -62,7 +62,7 @@
               <div *ngIf="rowData.isEditMode; else viewVariance">
                 <mat-form-field [class.error-row]="rowData.errors.Var_Tbl_Measure">
                   <mat-select [(value)]="rowData.row.Var_Tbl_Measure" (selectionChange)="onSelectChange(rowData, 'Var_Tbl_Measure')">
-                    <mat-option *ngFor="let name of variances" [value]="name">{{name}}</mat-option>
+                    <mat-option *ngFor="let varaince of variances" [value]="varaince?.id">{{varaince?.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -78,7 +78,7 @@
               <div *ngIf="rowData.isEditMode; else viewAdjs">
                 <mat-form-field [class.error-row]="rowData.errors.Adj_Tbl_Measure">
                   <mat-select [(value)]="rowData.row.Adj_Tbl_Measure" (selectionChange)="onSelectChange(rowData, 'Adj_Tbl_Measure')">
-                    <mat-option *ngFor="let name of adjs" [value]="name">{{name}}</mat-option>
+                    <mat-option *ngFor="let adj of adjs" [value]="adj?.id">{{adj?.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>

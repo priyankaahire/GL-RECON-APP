@@ -19,10 +19,10 @@ export class KeysComponent implements OnInit {
     'Var_Tbl_Key',
     'Adj_Tbl_Key',
   ];
-  sources= ['Source 1', 'Source 2', 'Source 3'];
-  targets= ['Target 1', 'Target 2', 'Target 3'];
-  adjs= ['Adj 1', 'Adj 2', 'Adj 3'];
-  variances= ['Variance 1', 'Variance 2', 'Variance 3']
+  sources:{ id: string, value: string }[] = []
+  targets:{ id: string, value: string }[] = []
+  variances:{ id: string, value: string }[] = [];
+  adjs:{ id: string, value: string }[] = [];
   validateFeilds = ['Src_Tbl_Key',
   'Trgt_Tbl_Key',
   'Var_Tbl_Key',
@@ -31,25 +31,28 @@ export class KeysComponent implements OnInit {
 
   // Define validation functions for each field
   validationConfig: { [key in keyof KeysModel]?: (value: any) => boolean } = {
-    Src_Tbl_Key: value => !!value && this.sources.includes(value),
-    Var_Tbl_Key: value => !!value && this.variances.includes(value),
-    Trgt_Tbl_Key: value => !!value && this.targets.includes(value),
-    Adj_Tbl_Key: value => !!value && this.adjs.includes(value)
+    Src_Tbl_Key: value => !!value && this.sources.some((item:any) => item.id === value),
+    Var_Tbl_Key: value => !!value && this.variances.some((item:any) => item.id === value),
+    Trgt_Tbl_Key: value => !!value && this.targets.some((item:any) => item.id === value),
+    Adj_Tbl_Key: value => !!value && this.adjs.some((item:any) => item.id === value),
   };
-
 
   constructor(private _apiService: ApiService, public dialog: MatDialog) {
   }
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes["dataSource"]) {
-  //     const dataSourceChange = changes["dataSource"];
-  //     if (dataSourceChange.currentValue) {
-  //       this.keysDataSource = new MatTableDataSource(this.initializeData(dataSourceChange.currentValue));
-  //     }
-  //   }
-  // }
   ngOnInit() {
+    this.loadStorageKeysData()
     this.getKeys();
+  }
+
+  loadStorageKeysData() {
+    let storageKeys = localStorage.getItem('KEYS_DATA');
+    const keysData =  storageKeys ? JSON.parse(storageKeys) : null;
+    this.sources = keysData[0].source_table;
+    this.targets = keysData[1].target_table
+    this.variances = keysData[2].variance_table
+    this.adjs = keysData[3].adjustment_table
+    console.log("keys", keysData)
+
   }
   getKeys() {
     this._apiService.getAllKeys().subscribe((data: KeysModel[]) => {

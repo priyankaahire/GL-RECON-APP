@@ -41,12 +41,14 @@ export class KeyMeasureComponent implements AfterViewInit {
     }
   }
 
-  onSave() {
+  async onSave() {
     if (this.keysComp && this.measureComp) {
-      const responseKeys = this.keysComp.validateAndSave();
-      const responseMeasures = this.measureComp.validateAndSave();
-      console.log('Keys data received in parent:', responseKeys, responseMeasures);
-      this.router.navigate(['./recon'])
+      const responseKeys = await this.keysComp.validateAndSave();
+      const responseMeasures = await this.measureComp.validateAndSave();
+      if(responseKeys && responseKeys.length > 0 && responseMeasures && responseMeasures.length > 0) {
+        console.log('Keys data received in parent:', responseKeys, responseMeasures);
+        this.router.navigate(['./recon'])
+      }
     } else {
       console.error('keys component not initialized');
     }

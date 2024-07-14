@@ -1,0 +1,24 @@
+[
+    {
+        "source":[
+            { "id": "RFDH", "value": "RFDH" }
+        ]
+    },
+    {
+        "target":[
+            { "id": "RFDH", "value": "RFDH raeget" }
+        ]
+    },
+    {
+        "variance":[
+            { "id": "RFDH", "value": "RFDH varince" }
+        ]
+    },
+    {
+        "adjustment":[
+            { "id": "RFDH", "value": "RFDH adjustmen" }
+        ]
+    }
+    
+   
+  ]

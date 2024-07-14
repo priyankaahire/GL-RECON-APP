@@ -15,6 +15,19 @@ export class DataService {
     return this.http.get(`${this.baseUrl}/frequencies.json`);
   }
 
+  getDatabase():Observable<any> {
+    return this.http.get(`${this.baseUrl}/database.json`)
+  }
+  getTables():Observable<any> {
+    return this.http.get(`${this.baseUrl}/tables.json`)
+  }
+  getSchemas():Observable<any> {
+    return this.http.get(`${this.baseUrl}/schemas.json`)
+  }
+  getKeyMeasures():Observable<any> {
+    return this.http.get(`${this.baseUrl}/key-measures.json`)
+  }
+
   getSourceDatabase(): Observable<any> {
     return this.http.get(`${this.baseUrl}/frequencies.json`);
   }

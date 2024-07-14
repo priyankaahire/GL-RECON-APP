@@ -1,0 +1,61 @@
+[
+    {
+        "keys":[
+
+            {
+                "source_table":[
+                    { "id": "RFDH", "value": "RFDH raeget" },
+                    { "id": "RFDH", "value": "RFDH raeget" }
+                ]
+            },
+            {
+                "target_table":[
+                    { "id": "RFDH", "value": "RFDH raeget" },
+                    { "id": "RFDH", "value": "RFDH raeget" }
+                ]
+            },
+            {
+                "variance_table":[
+                    { "id": "RFDH", "value": "RFDH raeget" },
+                    { "id": "RFDH", "value": "RFDH raeget" }
+                ]
+            },
+            {
+                "adjustment_table":[
+                    { "id": "RFDH", "value": "RFDH raeget" },
+                    { "id": "RFDH", "value": "RFDH raeget" }
+                ]
+            }
+           
+        ]
+    },
+    {
+        "measures":[
+            {
+                "source_table":[
+                    { "id": "RFDH", "value": "RFDH raeget" },
+                    { "id": "RFDH", "value": "RFDH raeget" }
+                ]
+            },
+            {
+                "target_table":[
+                    { "id": "RFDH", "value": "RFDH raeget" },
+                    { "id": "RFDH", "value": "RFDH raeget" }
+                ]
+            },
+            {
+                "variance_table":[
+                    { "id": "RFDH", "value": "RFDH var" },
+                    { "id": "RFDH", "value": "RFDH var" }
+                ]
+            },
+            {
+                "adjustment_table":[
+                    { "id": "RFDH", "value": "RFDH  adj" },
+                    { "id": "RFDH", "value": "RFDH  adj" }
+                ]
+            }
+           
+        ]
+    }
+]

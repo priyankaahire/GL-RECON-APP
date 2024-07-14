@@ -21,21 +21,24 @@ export class MeasureComponent {
     'Var_Tbl_Measure',
     'Adj_Tbl_Measure',
   ];
-  sources= ['Source 1', 'Source 2', 'Source 3'];
-  targets= ['Target 1', 'Target 2', 'Target 3'];
-  adjs= ['Adj 1', 'Adj 2', 'Adj 3'];
-  variances= ['Variance 1', 'Variance 2', 'Variance 3']
+  
+  sources:{ id: string, value: string }[] = []
+  targets:{ id: string, value: string }[] = []
+  variances:{ id: string, value: string }[] = [];
+  adjs:{ id: string, value: string }[] = [];
+
   validateFeilds = ['Src_Tbl_Measure', 'Trgt_Tbl_Measure','Var_Tbl_Measure','Adj_Tbl_Measure',]
   // Define validation functions for each field
   validationConfig: { [key in keyof MeasuresModel]?: (value: any) => boolean } = {
-    Src_Tbl_Measure: value => !!value && this.sources.includes(value),
-    Trgt_Tbl_Measure: value => !!value && this.variances.includes(value),
-    Var_Tbl_Measure: value => !!value && this.targets.includes(value),
-    Adj_Tbl_Measure: value => !!value && this.adjs.includes(value)
+    Src_Tbl_Measure: value => !!value && this.sources.some((item:any) => item.id == value),
+    Trgt_Tbl_Measure: value => !!value && this.targets.some((item:any) => item.id === value),
+    Var_Tbl_Measure: value => !!value && this.variances.some((item:any) => item.id === value),
+    Adj_Tbl_Measure: value => !!value && this.adjs.some((item:any) => item.id === value)
   };
   constructor(private _apiService: ApiService, public dialog: MatDialog) {}
 
   ngOnInit() {
+    this.loadStorageKeysData();
     this.getMeasures();
   }
   getMeasures() {
@@ -43,6 +46,16 @@ export class MeasureComponent {
       this.measuresDataSource = new MatTableDataSource(this.initializeData(data));
       this.dataModified.emit(this.measuresDataSource.data.map(item => item.row))
     });
+  }
+  loadStorageKeysData() {
+    let storageKeys = localStorage.getItem('MEASURES_DATA');
+    const measuresData =  storageKeys ? JSON.parse(storageKeys) : null;
+    this.sources = measuresData[0].source_table;
+    this.targets = measuresData[1].target_table
+    this.variances = measuresData[2].variance_table
+    this.adjs = measuresData[3].adjustment_table
+    console.log("measuresData", measuresData)
+
   }
   initializeData(data: MeasuresModel[]): { row: MeasuresModel, errors: Partial<Record<keyof MeasuresModel, boolean>>, isEditMode: boolean }[] {
     return data.map(item => (
@@ -68,7 +81,6 @@ export class MeasureComponent {
       Adj_Tbl_Measure: true,
     }, isEditMode: true };
     this.measuresDataSource.data = [...this.measuresDataSource.data, newRowData]; // Add the new row to the data source
-   // this.measuresDataSource.errors = {}
     this.dataModified.emit(this.measuresDataSource.data.map(item => item.row))
   }
   removeAll() {
